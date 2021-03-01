@@ -1,0 +1,22 @@
+title new note spa
+
+note over browser:
+when the button on the form get clicked
+user input will be saved to note object
+and then get push to notes array.
+the user input on the form will be reset
+and browser will run the redrawNotes & sendtoServer function
+end note
+
+browser->server: HTTP POST "https://studies.cs.helsinki.fi/exampleapp/new_note_spa"
+note over browser:
+the data that sent to the server is converted to a json type
+end note
+
+note over browser:
+if the server responses with status code 201 and 
+the browser readyState = 4
+the browser will console.log the responseText
+end note
+
+

@@ -3,19 +3,27 @@ import anecdotes from "./data"
 import Anecdote from "./components/Anecdote"
 import Button from "./components/Button"
 const App = () => {
-  const points = Array(anecdotes.length).fill(0)
+  const initVotes = Array(anecdotes.length).fill(0)
 
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(initVotes)
 
   const getRandomNumber = () => {
     let number = Math.floor(Math.random() * anecdotes.length)
     return setSelected(number)
   }
 
+  const addingVotes = () => {
+    const newVotes = [...votes]
+    newVotes[selected]++
+    setVotes(newVotes)
+  }
+
   return (
     <>
-      <Anecdote text={anecdotes[selected]}></Anecdote>
+      <Anecdote text={anecdotes[selected]} votes={votes[selected]}></Anecdote>
       <Button eventHandler={getRandomNumber} text='Next anecdote'></Button>
+      <Button eventHandler={addingVotes} text='votes'></Button>
     </>
   )
 }

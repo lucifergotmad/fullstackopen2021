@@ -1,24 +1,35 @@
-import React, { useState } from "react"
-
+import React, { useState } from "react";
+import Phonebook from "./components/Phonebook";
+import data from "./data";
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }])
-  const [newName, setNewName] = useState("")
-  console.log(persons)
-  return (
-    <div>
-      <h2>Phonebook</h2>
-      <form>
-        <div>
-          name: <input />
-        </div>
-        <div>
-          <button type='submit'>add</button>
-        </div>
-      </form>
-      <h2>{persons.name}</h2>
-      ...
-    </div>
-  )
-}
+  const [persons, setPersons] = useState(data);
+  const [newName, setNewName] = useState("");
 
-export default App
+  const addingName = (event) => {
+    event.preventDefault();
+    const personObject = {
+      name: newName,
+      id: persons.length + 1,
+    };
+    setPersons(persons.concat(personObject));
+    setNewName("");
+  };
+
+  const handleNameChange = (event) => {
+    event.preventDefault();
+    setNewName(event.target.value);
+  };
+
+  return (
+    <>
+      <Phonebook
+        persons={persons}
+        onSubmit={addingName}
+        onChange={handleNameChange}
+        inputValue={newName}
+      ></Phonebook>
+    </>
+  );
+};
+
+export default App;

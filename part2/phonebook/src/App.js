@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Phonebook from "./components/Phonebook";
-import data from "./data";
 const App = () => {
-  const [persons, setPersons] = useState(data);
+  const [persons, setPersons] = useState([{ name: "Arthur Leywin", id: 1 }]);
   const [newName, setNewName] = useState("");
+
+  const isNameAdded = persons.map((person) => {
+    return newName === person.name ? true : false;
+  });
 
   const addingName = (event) => {
     event.preventDefault();
@@ -11,8 +14,11 @@ const App = () => {
       name: newName,
       id: persons.length + 1,
     };
-    setPersons(persons.concat(personObject));
-    setNewName("");
+    if (!isNameAdded) {
+      setPersons(persons.concat(personObject));
+      setNewName("");
+    }
+    alert(`${newName} is already added`);
   };
 
   const handleNameChange = (event) => {
